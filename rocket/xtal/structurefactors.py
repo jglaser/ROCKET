@@ -37,7 +37,7 @@ def initial_SFC(
         n_bins=n_bins,
     )
     sfcalculator.inspect_data(verbose=False, spacing=spacing)
-    sfcalculator.calc_fprotein()
+    sfcalculator.calc_fprotein(sources="neutron")
 
     if added_chain_HKL is not None:
         sfcalculator.Fprotein_HKL = sfcalculator.Fprotein_HKL + added_chain_HKL
@@ -45,7 +45,7 @@ def initial_SFC(
         sfcalculator.solventpct = 1 - (1 - sfcalculator.solventpct) * total_chain_copy
 
     if solvent:
-        sfcalculator.calc_fsolvent()
+        sfcalculator.calc_fsolvent(source="neutron")
     else:
         sfcalculator.Fmask_HKL = torch.zeros_like(sfcalculator.Fprotein_HKL)
     sfcalculator.get_scales_adam()
