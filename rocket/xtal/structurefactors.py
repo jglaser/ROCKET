@@ -35,6 +35,7 @@ def initial_SFC(
         testset_value=testset_value,
         device=device,
         n_bins=n_bins,
+        mode="neutron",
     )
     sfcalculator.inspect_data(verbose=False, spacing=spacing)
     sfcalculator.calc_fprotein()
