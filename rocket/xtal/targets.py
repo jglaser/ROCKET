@@ -283,14 +283,14 @@ class LLGloss(torch.nn.Module):
             R_work uses the working set (~free_flag), R_free uses the free set
             (free_flag)
         """
-        self.sfc.calc_fprotein(atoms_position_tensor=xyz_orth, source="neutron")
+        self.sfc.calc_fprotein(atoms_position_tensor=xyz_orth)
 
         if added_chain_HKL is not None:
             self.sfc.Fprotein_HKL = self.sfc.Fprotein_HKL + added_chain_HKL
             self.sfc.Fprotein_asu = self.sfc.Fprotein_asu + added_chain_asu
 
         if solvent:
-            self.sfc.calc_fsolvent(source="neutron")
+            self.sfc.calc_fsolvent()
             if update_scales:
                 self.sfc.get_scales_adam(
                     lr=0.01,
