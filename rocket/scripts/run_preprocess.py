@@ -270,7 +270,7 @@ def dock_into_data(
             ]
 
             if rms is not None:
-                mr_cmd += [f"phasertng.ensemble.vrms_estimate={rms}"]
+                mr_cmd += [f"phasertng.model.vrms_estimate={rms}"]
 
             run_command(mr_cmd, env_source=phenix_source)
 
