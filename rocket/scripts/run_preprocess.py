@@ -229,6 +229,7 @@ def dock_into_data(
     map2,
     fixed_model=None,
     fasta_composition=None,
+    rms=None,
 ):
     """Handles molecular docking for Xray or CryoEM data."""
     docking_output_dir = os.path.join(output_dir, "docking_outputs")
@@ -267,6 +268,10 @@ def dock_into_data(
                 f"directory={os.path.join(output_dir, 'processed_predicted_files')}",
                 f"database={os.path.join(output_dir, 'phaser_files')}",
             ]
+
+            if rms is not None:
+                mr_cmd += [f"phasertng.ensemble.vrms_estimate={rms}"]
+
             run_command(mr_cmd, env_source=phenix_source)
 
     elif method == "cryoem":
@@ -410,6 +415,7 @@ def parse_args():
     parser.add_argument("--map1", default=None)
     parser.add_argument("--map2", default=None)
     parser.add_argument("--full_composition", default=None)
+    parser.add_argument("--rms", default=None, type=float)
 
     args = parser.parse_args()
 
@@ -459,6 +465,7 @@ def cli_runpreprocess():
         args.map2,
         args.fixed_model,
         args.full_composition,
+        args.rms,
     )
     prepare_rk_inputs(args.file_id, args.output_dir, args.method)
     prepare_pred_aligned(args.output_dir, args.file_id)
